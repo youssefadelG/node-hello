@@ -1,0 +1,72 @@
+name: CI Pipeline to lint the code, build docker image & push it to Docker Hub
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+  checks: write
+
+jobs:
+  lintCode:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Node.js dependencies
+        run: |
+          npm install
+
+      - name: Run ESLint
+        uses: wearerequired/lint-action@v2
+        with:
+          eslint: true
+          auto_fix: false
+          continue_on_error: false
+
+      - name: Run Prettier
+        run: |
+          npx prettier --check .
+
+  lintDocker:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: ./Dockerfile
+  build-push-docker-image:
+    needs: [lintCode, lintDocker]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t node-hello:v1 .
+          docker tag node-hello:v1 ${{ secrets.DOCKERHUB_REPO }}/node-hello:v1
+          docker push ${{ secrets.DOCKERHUB_REPO }}/node-hello:v1
