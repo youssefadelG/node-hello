@@ -40,3 +40,12 @@ jobs:
       - name: Run Prettier
         run: |
           npx prettier --check .
+ 
+  lintDocker:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: ./Dockerfile
