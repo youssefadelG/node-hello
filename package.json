@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "npx eslint ."
   },
   "devDependencies": {
     "eslint": "^9.0.0",
