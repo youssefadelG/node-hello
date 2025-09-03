@@ -1,0 +1,41 @@
+name: CI Pipeline to lint the code, build docker image & push it to Docker Hub
+
+on:
+    push:
+        branches:
+            - "**"
+    pull_request:
+        branches:
+            - main
+
+permissions:
+    contents: read
+    id-token: write
+    checks: write
+
+jobs:
+    lintCode:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Install Node.js dependencies
+              run: |
+                npm ci
+
+            - name: Install and Run ESLint
+              run: |
+                npm install eslint --save-dev
+                npx eslint .
+
+            - name: Install and Run Prettier
+              run: |
+                npm install prettier --save-dev
+                npx prettier --check .
