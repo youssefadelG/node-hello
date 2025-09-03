@@ -1,39 +1,41 @@
 name: CI Pipeline to lint the code, build docker image & push it to Docker Hub
 
 on:
-    push:
-        branches:
-            - "**"
-    pull_request:
-        branches:
-            - main
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - main
 
 permissions:
-    contents: read
-    id-token: write
-    checks: write
+  contents: read
+  id-token: write
+  checks: write
 
 jobs:
-    lintCode:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+  lintCode:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Set up Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: '20'
-                  cache: 'npm'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
-            - name: Install Node.js dependencies
-              run: |
-                npm install
+      - name: Install Node.js dependencies
+        run: |
+          npm install
 
-            - name: Run ESLint
-              uses: wearerequired/lint-action@v2
-              with:
-                  eslint: true
-                  prettier: true
-                  auto_fix: false
-                  continue_on_error: false
+      - name: Run ESLint
+        uses: wearerequired/lint-action@v2
+        with:
+          eslint: true
+          prettier: true
+          auto_fix: false
+          continue_on_error: false
