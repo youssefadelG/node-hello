@@ -28,7 +28,7 @@ jobs:
 
             - name: Install Node.js dependencies
               run: |
-                npm ci
+                npm install
 
             - name: Run ESLint
               uses: wearerequired/lint-action@v2
