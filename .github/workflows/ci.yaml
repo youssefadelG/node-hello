@@ -16,8 +16,6 @@ permissions:
 jobs:
   lintCode:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -36,6 +34,9 @@ jobs:
         uses: wearerequired/lint-action@v2
         with:
           eslint: true
-          prettier: true
           auto_fix: false
           continue_on_error: false
+
+      - name: Run Prettier
+        run: |
+          npx prettier --check .
