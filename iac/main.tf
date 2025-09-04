@@ -20,4 +20,5 @@ module "ecs" {
   application_load_balancer_name = var.application_load_balancer_name
   target_group_name = var.target_group_name
   container_port = var.container_port
+  new_relic_license_key = var.new_relic_license_key
 }

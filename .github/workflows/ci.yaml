@@ -76,6 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TF_VAR_dockerhub_repo_url: '${{ secrets.DOCKERHUB_REPO }}/node-hello:v1'
+      TF_VAR_new_relic_license_key: '${{ secrets.NEW_RELIC_LICENSE_KEY }}'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

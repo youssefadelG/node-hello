@@ -57,3 +57,9 @@ variable "container_port" {
   type        = number
   default     = 3000
 }
+
+variable "new_relic_license_key" {
+  description = "New Relic License Key for application monitoring"
+  type        = string
+  sensitive   = true
+}

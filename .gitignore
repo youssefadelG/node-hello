@@ -21,3 +21,8 @@ yarn-error.log
 .terraform.tfstate.backup
 .aws/
 *.auto.tfvars
+
+# Log files
+newrelic_agent.log
+app.log
+error.log

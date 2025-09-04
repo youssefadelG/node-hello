@@ -21,6 +21,44 @@ resource "aws_ecs_task_definition" "node_hello_task" {
           protocol      = "tcp"
         }
       ]
+      
+      environment = [
+        {
+          name  = "NEW_RELIC_LICENSE_KEY"
+          value = var.new_relic_license_key
+        },
+        {
+            name = "NEW_RELIC_APP_NAME"
+            value = "node-hello-ecs"
+        },
+        {
+            name  = "NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED"
+            value = "true"
+        },
+        {
+          name  = "NEW_RELIC_APPLICATION_LOGGING_FORWARDING_MAX_SAMPLES_STORED"
+          value = "10000"
+        },
+        {
+          name  = "NEW_RELIC_APPLICATION_LOGGING_LOCAL_DECORATING_ENABLED"
+          value = "true"
+        },
+        {
+          name  = "NODE_ENV"
+          value = "DEVELOPMENT"
+        }
+      ]
+
+      log_configuration = {
+        log_driver = "awslogs"
+        options = {
+          "awslogs-group"         = "/ecs/node-hello"
+          "awslogs-region"       = var.aws_region
+          "awslogs-stream-prefix" = "ecs"
+          "awslogs-create-group"  = "true"
+        }
+      }
+
 
     }
   ])
