@@ -19,7 +19,7 @@ const logger = winston.createLogger({
         winston.format.simple(),
       ),
     }),
-    // File transport for persistent logging
+
     new winston.transports.File({
       filename: 'app.log',
       format: winston.format.combine(
@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 logger.stream = {
-  write: function (message, encoding) {
+  write: function (message) {
     logger.info(message.trim());
   },
 };
