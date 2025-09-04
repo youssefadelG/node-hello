@@ -38,6 +38,14 @@ resource "aws_ecs_task_definition" "node_hello_task" {
         {
           name  = "NEW_RELIC_APPLICATION_LOGGING_FORWARDING_MAX_SAMPLES_STORED"
           value = "10000"
+        },
+        {
+          name  = "NEW_RELIC_APPLICATION_LOGGING_LOCAL_DECORATING_ENABLED"
+          value = "true"
+        },
+        {
+          name  = "NODE_ENV"
+          value = "DEVELOPMENT"
         }
       ]
 
