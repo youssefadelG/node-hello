@@ -61,3 +61,9 @@ variable "aws_region" {
   type        = string
   default     = "us-east-1"
 }
+
+variable "new_relic_license_key" {
+  description = "New Relic license key"
+  type        = string
+  sensitive   = true
+}

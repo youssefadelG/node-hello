@@ -102,4 +102,6 @@ jobs:
 
       - name: Terraform Apply
         working-directory: ./iac
+        env:
+          TF_VAR_new_relic_license_key: '${{ secrets.NEW_RELIC_LICENSE_KEY }}'
         run: terraform apply -auto-approve

@@ -21,6 +21,28 @@ resource "aws_ecs_task_definition" "node_hello_task" {
           protocol      = "tcp"
         }
       ]
+      
+      environment = [
+        {
+          name  = "NEW_RELIC_LICENSE_KEY"
+          value = var.new_relic_license_key
+        },
+        {
+            name = "NEW_RELIC_APP_NAME"
+            value = "node-hello"
+        }
+      ]
+
+      log_configuration = {
+        log_driver = "awslogs"
+        options = {
+          "awslogs-group"         = aws_cloudwatch_log_group.node_hello_logs.name
+          "awslogs-region"       = var.aws_region
+          "awslogs-stream-prefix" = "ecs"
+          "awslogs-create-group"  = "true"
+        }
+      }
+
 
     }
   ])
