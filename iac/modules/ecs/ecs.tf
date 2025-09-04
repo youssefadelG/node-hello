@@ -29,7 +29,7 @@ resource "aws_ecs_task_definition" "node_hello_task" {
         },
         {
             name = "NEW_RELIC_APP_NAME"
-            value = "node-hello"
+            value = "node-hello-ecs"
         },
         {
             name  = "NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED"

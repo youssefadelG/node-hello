@@ -30,19 +30,6 @@ const logger = winston.createLogger({
   ],
 });
 
-if (process.env.NODE_ENV === 'production') {
-  logger.add(
-    new winston.transports.File({
-      filename: 'error.log',
-      level: 'error',
-      format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json(),
-      ),
-    }),
-  );
-}
-
 logger.stream = {
   write: function (message) {
     logger.info(message.trim());
