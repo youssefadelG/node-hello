@@ -36,7 +36,7 @@ resource "aws_ecs_task_definition" "node_hello_task" {
       log_configuration = {
         log_driver = "awslogs"
         options = {
-          "awslogs-group"         = aws_cloudwatch_log_group.node_hello_logs.name
+          "awslogs-group"         = "/ecs/node-hello"
           "awslogs-region"       = var.aws_region
           "awslogs-stream-prefix" = "ecs"
           "awslogs-create-group"  = "true"
