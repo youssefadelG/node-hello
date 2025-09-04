@@ -30,6 +30,14 @@ resource "aws_ecs_task_definition" "node_hello_task" {
         {
             name = "NEW_RELIC_APP_NAME"
             value = "node-hello"
+        },
+        {
+            name  = "NEW_RELIC_APPLICATION_LOGGING_FORWARDING_ENABLED"
+            value = "true"
+        },
+        {
+          name  = "NEW_RELIC_APPLICATION_LOGGING_FORWARDING_MAX_SAMPLES_STORED"
+          value = "10000"
         }
       ]
 
