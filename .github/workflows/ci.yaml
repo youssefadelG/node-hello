@@ -70,3 +70,36 @@ jobs:
           docker build -t node-hello:v1 .
           docker tag node-hello:v1 ${{ secrets.DOCKERHUB_REPO }}/node-hello:v1
           docker push ${{ secrets.DOCKERHUB_REPO }}/node-hello:v1
+
+  terraform-deploy:
+    needs: [build-push-docker-image]
+    runs-on: ubuntu-latest
+    env:
+      TF_VAR_dockerhub_repo_url: '${{ secrets.DOCKERHUB_REPO }}/node-hello:v1'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-east-1
+
+      - name: Confirm Identity
+        run: aws sts get-caller-identity
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        working-directory: ./iac
+        run: terraform init
+
+      - name: Terraform Plan
+        working-directory: ./iac
+        run: terraform plan
+
+      - name: Terraform Apply
+        working-directory: ./iac
+        run: terraform apply -auto-approve

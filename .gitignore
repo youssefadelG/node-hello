@@ -14,3 +14,10 @@ yarn-error.log
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Terraform files
+.terraform/
+.terraform.tfstate
+.terraform.tfstate.backup
+.aws/
+*.auto.tfvars
