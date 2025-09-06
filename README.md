@@ -63,7 +63,7 @@ docker ps
 
 Add GitHub Secrets:
 
-- `AWS_ROLE_ARN` (arn:aws:iam::YOUR_ACCOUNT_ID:role/github-actions-role)
+- `AWS_ROLE_TO_ASSUME` (arn:aws:iam::YOUR_ACCOUNT_ID:role/github-actions-role)
 - `DOCKER_USERNAME`
 - `DOCKER_PASSWORD`
 - `DOCKERHUB_REPO` (your DockerHub repo url)
@@ -71,6 +71,12 @@ Add GitHub Secrets:
 
 Push to any branch triggers deployment.
 Pull requests to main branch triggers deployment.
+
+#### NOTE - In case Prettier linting stage fails, run the below locally to fix issues and push again:
+
+```bash
+npx prettier --write .
+```
 
 ## Monitoring
 
@@ -101,10 +107,10 @@ aws logs tail /ecs/node-hello --follow
 
 ## Snippets
 
-![alt text](node-hello\docs\image3.png)
+![alt text](./docs/image3.png)
 
-![alt text](node-hello\docs\image.png)
+![alt text](./docs/image.png)
 
-![alt text](node-hello\docs\image1.png)
+![alt text](./docs/image1.png)
 
-![alt text](node-hello\docs\image2.png)
+![alt text](./docs/image2.png)
