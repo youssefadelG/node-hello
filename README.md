@@ -85,7 +85,6 @@ npx prettier --write .
 
 - Intgrations & Agents -> Node.js -> On a host -> Create a new key -> Copy NEW_RELIC_LICENSE_KEY -> Continue -> Enter app name (node-hello-ecs) -> Continue -> Test
 
-
 ## Troubleshooting
 
 ```bash
