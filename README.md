@@ -85,16 +85,6 @@ npx prettier --write .
 
 - Intgrations & Agents -> Node.js -> On a host -> Create a new key -> Copy NEW_RELIC_LICENSE_KEY -> Continue -> Enter app name (node-hello-ecs) -> Continue -> Test
 
-## Troubleshooting
-
-```bash
-# Check ECS service
-aws ecs describe-services --cluster node-hello-cluster --services node-hello-task-service
-
-# View logs
-aws logs tail /ecs/node-hello --follow
-```
-
 ## Assumptions
 
 - I'm the only one working on this terraform code so I didn't enable S3 Object locking for tfstate bucket.
