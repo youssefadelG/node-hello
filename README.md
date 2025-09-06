@@ -79,6 +79,12 @@ aws ecs describe-services --cluster node-hello-cluster --services node-hello-tas
 aws logs tail /ecs/node-hello --follow
 ```
 
+## Assumptions
+- I'm the only one working on this terraform code so I didn't enable S3 Object locking for tfstate bucket.
+- Using ECS Fargate is allowed.
+- Only required to set up a log aggregation on the application level, thus I didn't add a monitoring layer for the underlying host OS.
+- I'm allowed to add in the Application code without disrupting its core functionality.
+
 ## Snippets 
 ![alt text](node-hello\docs\image3.png)
 
@@ -87,3 +93,4 @@ aws logs tail /ecs/node-hello --follow
 ![alt text](node-hello\docs\image1.png)
 
 ![alt text](node-hello\docs\image2.png)
+
