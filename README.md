@@ -2,8 +2,8 @@
 
 Simple Node.js app with automated deployment & log aggregation.
 
-
 ### Prerequisites
+
 - Node.js, Docker, AWS Account, New Relic Account, Terraform
 
 ### AWS Setup (Required First)
@@ -13,19 +13,23 @@ Simple Node.js app with automated deployment & log aggregation.
 - Create bucket with a globally unique name.
 - Block public access, enable versioning.
 - Update iac/backend.tf with your bucket name:
-     bucket = "your-terraform-state-bucket-name"
+  bucket = "your-terraform-state-bucket-name"
 
 #### 2. Create GitHub OIDC Provider
+
 - Create an OIDC for Github:
+
 ```
 Provider URL: https://token.actions.githubusercontent.com
 Audience: sts.amazonaws.com
 ```
 
 #### 3. Create IAM Web Identity Role with Minimum Required Permissions
+
 Create role `github-actions-role` with policies:
+
 - `AmazonECSFullAccess`
-- `AmazonEC2FullAccess` 
+- `AmazonEC2FullAccess`
 - `AmazonVPCFullAccess`
 - `IAMFullAccess`
 - `AmazonS3FullAccess`
@@ -33,12 +37,16 @@ Create role `github-actions-role` with policies:
 - `ElasticLoadBalancingFullAccess`
 
 ### Steps Required for the CI pipeline to work
+
 1- Fork repo then clone it locally
+
 ```bash
 git clone <repo url>
 cd node-hello
 ```
+
 2- Dockerize app & push to DockerHub
+
 ```bash
 docker build -t your-dockerhub-username/node-hello:v1 .
 
@@ -52,7 +60,9 @@ docker ps
 ```
 
 ### CI/CD Setup
+
 Add GitHub Secrets:
+
 - `AWS_ROLE_ARN` (arn:aws:iam::YOUR_ACCOUNT_ID:role/github-actions-role)
 - `DOCKER_USERNAME`
 - `DOCKER_PASSWORD`
@@ -63,14 +73,17 @@ Push to any branch triggers deployment.
 Pull requests to main branch triggers deployment.
 
 ## Monitoring
+
 - **New Relic**: APM and logs at newrelic.com
 
 ### Setting up new relic integration for NodeJS
+
 - Intgrations & Agents -> Node.js -> On a host -> Create a new key -> Copy NEW_RELIC_LICENSE_KEY -> Continue -> Enter app name (node-hello-ecs) -> Continue -> Test
 
 - **CloudWatch**: ECS logs at `/ecs/node-hello`
 
 ## Troubleshooting
+
 ```bash
 # Check ECS service
 aws ecs describe-services --cluster node-hello-cluster --services node-hello-task-service
@@ -80,12 +93,14 @@ aws logs tail /ecs/node-hello --follow
 ```
 
 ## Assumptions
+
 - I'm the only one working on this terraform code so I didn't enable S3 Object locking for tfstate bucket.
 - Using ECS Fargate is allowed.
 - Only required to set up a log aggregation on the application level, thus I didn't add a monitoring layer for the underlying host OS.
 - I'm allowed to add in the Application code without disrupting its core functionality.
 
-## Snippets 
+## Snippets
+
 ![alt text](node-hello\docs\image3.png)
 
 ![alt text](node-hello\docs\image.png)
@@ -93,4 +108,3 @@ aws logs tail /ecs/node-hello --follow
 ![alt text](node-hello\docs\image1.png)
 
 ![alt text](node-hello\docs\image2.png)
-
