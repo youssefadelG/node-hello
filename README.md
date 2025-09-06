@@ -33,7 +33,6 @@ Create role `github-actions-role` with policies:
 - `AmazonVPCFullAccess`
 - `IAMFullAccess`
 - `AmazonS3FullAccess`
-- `CloudWatchLogsFullAccess`
 - `ElasticLoadBalancingFullAccess`
 
 ### Steps Required for the CI pipeline to work
@@ -86,7 +85,6 @@ npx prettier --write .
 
 - Intgrations & Agents -> Node.js -> On a host -> Create a new key -> Copy NEW_RELIC_LICENSE_KEY -> Continue -> Enter app name (node-hello-ecs) -> Continue -> Test
 
-- **CloudWatch**: ECS logs at `/ecs/node-hello`
 
 ## Troubleshooting
 
