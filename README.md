@@ -76,6 +76,7 @@ Pull requests to main branch triggers deployment.
 ```bash
 npx prettier --write .
 ```
+
 ### Infrastructure Provisioned
 
 ![alt text](./docs/node-hello_infra.drawio.png)
