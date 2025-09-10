@@ -76,8 +76,11 @@ Pull requests to main branch triggers deployment.
 ```bash
 npx prettier --write .
 ```
+### Infrastructure Provisioned
 
-## Monitoring
+![alt text](./docs/node-hello_infra.drawio.png)
+
+### Monitoring
 
 - **New Relic**: APM and logs at newrelic.com
 
